@@ -1,0 +1,759 @@
+{
+  "seed": 42,
+  "generated": "2026-09-11",
+  "baseline": {
+    "metrics": {
+      "Multinomial Naive Bayes": {
+        "model": "Multinomial Naive Bayes",
+        "accuracy": 0.9792592592592593,
+        "macro_f1": 0.9666666666666668,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9950980392156863,
+            "recall": 0.9398148148148148,
+            "f1": 0.9666666666666667,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.8828828828828829,
+            "recall": 0.98989898989899,
+            "f1": 0.9333333333333333,
+            "support": 99
+          }
+        },
+        "ai_fn": 0,
+        "ai_fn_rate": 0.0,
+        "confusion_matrix": [
+          [
+            360,
+            0,
+            0
+          ],
+          [
+            0,
+            203,
+            13
+          ],
+          [
+            0,
+            1,
+            98
+          ]
+        ]
+      },
+      "Linear SVM": {
+        "model": "Linear SVM",
+        "accuracy": 0.9925925925925926,
+        "macro_f1": 0.9878231221514803,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9953051643192489,
+            "recall": 0.9814814814814815,
+            "f1": 0.9883449883449883,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.9607843137254902,
+            "recall": 0.98989898989899,
+            "f1": 0.9751243781094527,
+            "support": 99
+          }
+        },
+        "ai_fn": 0,
+        "ai_fn_rate": 0.0,
+        "confusion_matrix": [
+          [
+            360,
+            0,
+            0
+          ],
+          [
+            0,
+            212,
+            4
+          ],
+          [
+            0,
+            1,
+            98
+          ]
+        ]
+      },
+      "Random Forest": {
+        "model": "Random Forest",
+        "accuracy": 0.9925925925925926,
+        "macro_f1": 0.9877578145950169,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9906976744186047,
+            "recall": 0.9861111111111112,
+            "f1": 0.988399071925754,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.97,
+            "recall": 0.9797979797979798,
+            "f1": 0.9748743718592965,
+            "support": 99
+          }
+        },
+        "ai_fn": 0,
+        "ai_fn_rate": 0.0,
+        "confusion_matrix": [
+          [
+            360,
+            0,
+            0
+          ],
+          [
+            0,
+            213,
+            3
+          ],
+          [
+            0,
+            2,
+            97
+          ]
+        ]
+      }
+    },
+    "feature_dim": 60006,
+    "control": {
+      "dist": {
+        "ai_phishing": 1174,
+        "legitimate": 82
+      },
+      "far": 0.9347133757961783
+    }
+  },
+  "baseline_top_terms": {
+    "ai_phishing": [
+      [
+        "secure",
+        0.39361128216415026
+      ],
+      [
+        "com dear",
+        0.38339931684180967
+      ],
+      [
+        "exclusive",
+        0.3452479569553355
+      ],
+      [
+        "ensure",
+        0.33710957567201616
+      ],
+      [
+        "2023",
+        0.32420796150539116
+      ],
+      [
+        "our",
+        0.31915409820690577
+      ],
+      [
+        "com",
+        0.3168901796261346
+      ],
+      [
+        "finds you",
+        0.31674876652446005
+      ],
+      [
+        "you well",
+        0.3167393749155983
+      ],
+      [
+        "finds",
+        0.31613942514343557
+      ],
+      [
+        "hope this",
+        0.31588174863755203
+      ],
+      [
+        "hope",
+        0.3129610275038472
+      ]
+    ],
+    "human_phishing": [
+      [
+        "ebay",
+        0.6120138331174648
+      ],
+      [
+        "subject",
+        0.47930830259811885
+      ],
+      [
+        "jose",
+        0.47585491024752957
+      ],
+      [
+        "monkey",
+        0.4063938958209854
+      ],
+      [
+        "monkey org",
+        0.40120151447635893
+      ],
+      [
+        "bank",
+        0.40025535784347877
+      ],
+      [
+        "please email",
+        0.3957936171649681
+      ],
+      [
+        "credit",
+        0.39121132323972935
+      ],
+      [
+        "account",
+        0.3719885321271516
+      ],
+      [
+        "to report",
+        0.3704499360165752
+      ],
+      [
+        "2022",
+        0.3577152227793396
+      ],
+      [
+        "nbsp",
+        0.3574792360921771
+      ]
+    ],
+    "legitimate": [
+      [
+        "2008",
+        0.7164222095473112
+      ],
+      [
+        "2007",
+        0.7027763840256677
+      ],
+      [
+        "trade me",
+        0.5113003307334104
+      ],
+      [
+        "wrote",
+        0.39551456517855316
+      ],
+      [
+        "opensuse",
+        0.39399874376826033
+      ],
+      [
+        "tony",
+        0.39078991786644107
+      ],
+      [
+        "my",
+        0.3748279118278843
+      ],
+      [
+        "news",
+        0.36423596179052353
+      ],
+      [
+        "subject re",
+        0.31584361085810186
+      ],
+      [
+        "thanks",
+        0.3154218490903864
+      ],
+      [
+        "that cannot",
+        0.3002201658151459
+      ],
+      [
+        "of spam",
+        0.2999600520717442
+      ]
+    ]
+  },
+  "experiment_a": {
+    "metrics": {
+      "Linear SVM (source-only)": {
+        "model": "Linear SVM (source-only)",
+        "accuracy": 0.917037037037037,
+        "macro_f1": 0.8879285822534354,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 0.9546666666666667,
+            "recall": 0.9944444444444445,
+            "f1": 0.9741496598639455,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9444444444444444,
+            "recall": 0.7870370370370371,
+            "f1": 0.8585858585858586,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.7583333333333333,
+            "recall": 0.9191919191919192,
+            "f1": 0.8310502283105022,
+            "support": 99
+          }
+        },
+        "ai_fn": 2,
+        "ai_fn_rate": 0.005555555555555556,
+        "confusion_matrix": [
+          [
+            358,
+            2,
+            0
+          ],
+          [
+            17,
+            170,
+            29
+          ],
+          [
+            0,
+            8,
+            91
+          ]
+        ]
+      },
+      "Random Forest (source-only)": {
+        "model": "Random Forest (source-only)",
+        "accuracy": 0.9718518518518519,
+        "macro_f1": 0.955850896560399,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 0.997229916897507,
+            "recall": 1.0,
+            "f1": 0.9986130374479889,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9852216748768473,
+            "recall": 0.9259259259259259,
+            "f1": 0.954653937947494,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.8648648648648649,
+            "recall": 0.9696969696969697,
+            "f1": 0.9142857142857143,
+            "support": 99
+          }
+        },
+        "ai_fn": 0,
+        "ai_fn_rate": 0.0,
+        "confusion_matrix": [
+          [
+            360,
+            0,
+            0
+          ],
+          [
+            1,
+            200,
+            15
+          ],
+          [
+            0,
+            3,
+            96
+          ]
+        ]
+      }
+    },
+    "n_features": 21,
+    "feature_names": [
+      "log_len",
+      "n_lines",
+      "avg_line_len",
+      "max_line_len",
+      "frac_ws_newline",
+      "n_tabs",
+      "quote_lines",
+      "header_markers",
+      "n_at",
+      "n_url_scheme",
+      "nonascii_ratio",
+      "digit_ratio",
+      "upper_ratio",
+      "space_run_max",
+      "html_tags",
+      "n_bullets",
+      "n_nbsp",
+      "n_replacement",
+      "punct_ratio",
+      "crlf_present",
+      "trailing_ws_lines"
+    ],
+    "source_recovery_accuracy": 0.9051851851851852,
+    "top_importances": [
+      [
+        "frac_ws_newline",
+        0.17376493729063128
+      ],
+      [
+        "header_markers",
+        0.1712561646115976
+      ],
+      [
+        "n_lines",
+        0.11966104939186555
+      ],
+      [
+        "punct_ratio",
+        0.09184835567996193
+      ],
+      [
+        "avg_line_len",
+        0.07990376928516035
+      ],
+      [
+        "n_at",
+        0.07739656375775633
+      ],
+      [
+        "log_len",
+        0.06309239152141671
+      ],
+      [
+        "max_line_len",
+        0.06161623767246665
+      ],
+      [
+        "upper_ratio",
+        0.05171185466598035
+      ],
+      [
+        "nonascii_ratio",
+        0.02758174981537544
+      ]
+    ]
+  },
+  "experiment_b": {
+    "metrics": {
+      "Multinomial Naive Bayes": {
+        "model": "Multinomial Naive Bayes",
+        "accuracy": 0.9777777777777777,
+        "macro_f1": 0.9642000704633533,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9902439024390244,
+            "recall": 0.9398148148148148,
+            "f1": 0.9643705463182898,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.8818181818181818,
+            "recall": 0.9797979797979798,
+            "f1": 0.9282296650717703,
+            "support": 99
+          }
+        },
+        "ai_fn": 0,
+        "ai_fn_rate": 0.0,
+        "confusion_matrix": [
+          [
+            360,
+            0,
+            0
+          ],
+          [
+            0,
+            203,
+            13
+          ],
+          [
+            0,
+            2,
+            97
+          ]
+        ]
+      },
+      "Linear SVM": {
+        "model": "Linear SVM",
+        "accuracy": 0.9911111111111112,
+        "macro_f1": 0.9853488372093023,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9906542056074766,
+            "recall": 0.9814814814814815,
+            "f1": 0.986046511627907,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.9603960396039604,
+            "recall": 0.9797979797979798,
+            "f1": 0.97,
+            "support": 99
+          }
+        },
+        "ai_fn": 0,
+        "ai_fn_rate": 0.0,
+        "confusion_matrix": [
+          [
+            360,
+            0,
+            0
+          ],
+          [
+            0,
+            212,
+            4
+          ],
+          [
+            0,
+            2,
+            97
+          ]
+        ]
+      },
+      "Random Forest": {
+        "model": "Random Forest",
+        "accuracy": 0.9896296296296296,
+        "macro_f1": 0.9829523710120726,
+        "per_class": {
+          "ai_phishing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 360
+          },
+          "human_phishing": {
+            "precision": 0.9906103286384976,
+            "recall": 0.9768518518518519,
+            "f1": 0.9836829836829837,
+            "support": 216
+          },
+          "legitimate": {
+            "precision": 0.9509803921568627,
+            "recall": 0.9797979797979798,
+            "f1": 0.9651741293532339,
+            "support": 99
+          }
+        },
+        "ai_fn": 0,
+        "ai_fn_rate": 0.0,
+        "confusion_matrix": [
+          [
+            360,
+            0,
+            0
+          ],
+          [
+            0,
+            211,
+            5
+          ],
+          [
+            0,
+            2,
+            97
+          ]
+        ]
+      }
+    },
+    "feature_dim": 60006,
+    "control": {
+      "dist": {
+        "ai_phishing": 1149,
+        "human_phishing": 2,
+        "legitimate": 105
+      },
+      "far": 0.9148089171974523
+    },
+    "source_recovery_after": 0.7985185185185185,
+    "rows_kept": 3149,
+    "rows_total": 3150
+  },
+  "sanitized_top_terms": {
+    "ai_phishing": [
+      [
+        "ensure",
+        0.35842175690114325
+      ],
+      [
+        "exclusive",
+        0.3560737454288845
+      ],
+      [
+        "finds you",
+        0.3394772790699974
+      ],
+      [
+        "finds",
+        0.3387906072195667
+      ],
+      [
+        "you well",
+        0.33870364632745253
+      ],
+      [
+        "hope this",
+        0.33821155779888107
+      ],
+      [
+        "secure",
+        0.3377393839189652
+      ],
+      [
+        "hope",
+        0.3344317450325643
+      ],
+      [
+        "our",
+        0.3337612011661198
+      ],
+      [
+        "valued",
+        0.3236499812277548
+      ],
+      [
+        "message finds",
+        0.3230461198109194
+      ],
+      [
+        "2023",
+        0.3131335599627358
+      ]
+    ],
+    "human_phishing": [
+      [
+        "ebay",
+        0.6310500057234161
+      ],
+      [
+        "pharmacy",
+        0.43333033245366753
+      ],
+      [
+        "account",
+        0.39412452607795356
+      ],
+      [
+        "credit",
+        0.3924378569442629
+      ],
+      [
+        "2022",
+        0.39173572933394585
+      ],
+      [
+        "bank",
+        0.3796681278740371
+      ],
+      [
+        "nbsp",
+        0.3719939390554999
+      ],
+      [
+        "paypal",
+        0.35809822871502234
+      ],
+      [
+        "2005",
+        0.3564105534670672
+      ],
+      [
+        "emailtoken",
+        0.33854775871493403
+      ],
+      [
+        "privately",
+        0.33771082260566204
+      ],
+      [
+        "online",
+        0.33178193020515095
+      ]
+    ],
+    "legitimate": [
+      [
+        "2007",
+        0.7867828274704892
+      ],
+      [
+        "2008",
+        0.7465493479089016
+      ],
+      [
+        "re",
+        0.6070168089105402
+      ],
+      [
+        "trade me",
+        0.5618761214581615
+      ],
+      [
+        "opensuse",
+        0.44460404530362363
+      ],
+      [
+        "wrote",
+        0.41680708277355827
+      ],
+      [
+        "spambayes",
+        0.39823296584287415
+      ],
+      [
+        "tony",
+        0.37975807453710686
+      ],
+      [
+        "my",
+        0.37794321311703327
+      ],
+      [
+        "snippet",
+        0.36651565530163915
+      ],
+      [
+        "explanation",
+        0.35028694821911505
+      ],
+      [
+        "problem",
+        0.3355931684291615
+      ]
+    ]
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "model_version": "svm-tfidf-20260911",
+  "winner": "Linear SVM",
+  "selection_rule": "highest macro-F1 on held-out test; ties -> lower ai_phishing FN rate",
+  "tie_break_triggered": true,
+  "seed": 42,
+  "trained": "20260911",
+  "data": {
+    "file": "processed/dataset.csv",
+    "train": 3150,
+    "val": 675,
+    "test": 675,
+    "class_balance_note": "ai_phishing:legitimate ~3.6:1; all models balanced",
+    "nb_weighting": "MultinomialNB has no class_weight; used compute_sample_weight('balanced')"
+  },
+  "features": {
+    "word_tfidf": "1-2 grams, min_df=2, max_features=30000, sublinear_tf",
+    "char_tfidf": "char_wb 3-5 grams, min_df=2, max_features=30000",
+    "stylometric": [
+      "avg_word_len",
+      "punct_ratio",
+      "exclamations",
+      "urgency_keywords",
+      "url_count",
+      "flesch_reading_ease"
+    ],
+    "total_dim": 60006,
+    "scaling": "stylometrics min-max to [0,1] so MultinomialNB can use them"
+  },
+  "test_metrics": {
+    "Multinomial Naive Bayes": {
+      "model": "Multinomial Naive Bayes",
+      "accuracy": 0.9792592592592593,
+      "macro_f1": 0.9666666666666668,
+      "per_class": {
+        "ai_phishing": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 360
+        },
+        "human_phishing": {
+          "precision": 0.9950980392156863,
+          "recall": 0.9398148148148148,
+          "f1": 0.9666666666666667,
+          "support": 216
+        },
+        "legitimate": {
+          "precision": 0.8828828828828829,
+          "recall": 0.98989898989899,
+          "f1": 0.9333333333333333,
+          "support": 99
+        }
+      },
+      "ai_phishing_false_negatives": 0,
+      "ai_phishing_fn_rate": 0.0,
+      "confusion_matrix": [
+        [
+          360,
+          0,
+          0
+        ],
+        [
+          0,
+          203,
+          13
+        ],
+        [
+          0,
+          1,
+          98
+        ]
+      ]
+    },
+    "Linear SVM": {
+      "model": "Linear SVM",
+      "accuracy": 0.9925925925925926,
+      "macro_f1": 0.9878231221514803,
+      "per_class": {
+        "ai_phishing": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 360
+        },
+        "human_phishing": {
+          "precision": 0.9953051643192489,
+          "recall": 0.9814814814814815,
+          "f1": 0.9883449883449883,
+          "support": 216
+        },
+        "legitimate": {
+          "precision": 0.9607843137254902,
+          "recall": 0.98989898989899,
+          "f1": 0.9751243781094527,
+          "support": 99
+        }
+      },
+      "ai_phishing_false_negatives": 0,
+      "ai_phishing_fn_rate": 0.0,
+      "confusion_matrix": [
+        [
+          360,
+          0,
+          0
+        ],
+        [
+          0,
+          212,
+          4
+        ],
+        [
+          0,
+          1,
+          98
+        ]
+      ]
+    },
+    "Random Forest": {
+      "model": "Random Forest",
+      "accuracy": 0.9925925925925926,
+      "macro_f1": 0.9877578145950169,
+      "per_class": {
+        "ai_phishing": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 360
+        },
+        "human_phishing": {
+          "precision": 0.9906976744186047,
+          "recall": 0.9861111111111112,
+          "f1": 0.988399071925754,
+          "support": 216
+        },
+        "legitimate": {
+          "precision": 0.97,
+          "recall": 0.9797979797979798,
+          "f1": 0.9748743718592965,
+          "support": 99
+        }
+      },
+      "ai_phishing_false_negatives": 0,
+      "ai_phishing_fn_rate": 0.0,
+      "confusion_matrix": [
+        [
+          360,
+          0,
+          0
+        ],
+        [
+          0,
+          213,
+          3
+        ],
+        [
+          0,
+          2,
+          97
+        ]
+      ]
+    }
+  },
+  "val_metrics": {
+    "Multinomial Naive Bayes": {
+      "model": "Multinomial Naive Bayes",
+      "accuracy": 0.9851851851851852,
+      "macro_f1": 0.9781774525146522,
+      "per_class": {
+        "ai_phishing": {
+          "precision": 0.9944598337950139,
+          "recall": 1.0,
+          "f1": 0.9972222222222222,
+          "support": 359
+        },
+        "human_phishing": {
+          "precision": 0.9952153110047847,
+          "recall": 0.9585253456221198,
+          "f1": 0.9765258215962441,
+          "support": 217
+        },
+        "legitimate": {
+          "precision": 0.9333333333333333,
+          "recall": 0.98989898989899,
+          "f1": 0.9607843137254902,
+          "support": 99
+        }
+      },
+      "ai_phishing_false_negatives": 0,
+      "ai_phishing_fn_rate": 0.0,
+      "confusion_matrix": [
+        [
+          359,
+          0,
+          0
+        ],
+        [
+          2,
+          208,
+          7
+        ],
+        [
+          0,
+          1,
+          98
+        ]
+      ]
+    },
+    "Linear SVM": {
+      "model": "Linear SVM",
+      "accuracy": 0.997037037037037,
+      "macro_f1": 0.9950968983227049,
+      "per_class": {
+        "ai_phishing": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 359
+        },
+        "human_phishing": {
+          "precision": 0.9953917050691244,
+          "recall": 0.9953917050691244,
+          "f1": 0.9953917050691244,
+          "support": 217
+        },
+        "legitimate": {
+          "precision": 0.98989898989899,
+          "recall": 0.98989898989899,
+          "f1": 0.98989898989899,
+          "support": 99
+        }
+      },
+      "ai_phishing_false_negatives": 0,
+      "ai_phishing_fn_rate": 0.0,
+      "confusion_matrix": [
+        [
+          359,
+          0,
+          0
+        ],
+        [
+          0,
+          216,
+          1
+        ],
+        [
+          0,
+          1,
+          98
+        ]
+      ]
+    },
+    "Random Forest": {
+      "model": "Random Forest",
+      "accuracy": 0.9896296296296296,
+      "macro_f1": 0.9826947524888029,
+      "per_class": {
+        "ai_phishing": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 359
+        },
+        "human_phishing": {
+          "precision": 0.9772727272727273,
+          "recall": 0.9907834101382489,
+          "f1": 0.9839816933638444,
+          "support": 217
+        },
+        "legitimate": {
+          "precision": 0.9791666666666666,
+          "recall": 0.9494949494949495,
+          "f1": 0.9641025641025641,
+          "support": 99
+        }
+      },
+      "ai_phishing_false_negatives": 0,
+      "ai_phishing_fn_rate": 0.0,
+      "confusion_matrix": [
+        [
+          359,
+          0,
+          0
+        ],
+        [
+          0,
+          215,
+          2
+        ],
+        [
+          0,
+          5,
+          94
+        ]
+      ]
+    }
+  },
+  "control_set": {
+    "n": 1256,
+    "predictions": {
+      "ai_phishing": 1174,
+      "legitimate": 82
+    },
+    "ai_phishing_false_alarm_rate": 0.9347133757961783,
+    "interpretation": "Control is AI-written but BENIGN. A high ai_phishing rate here means the model keys on AI-generated style, not phishing intent."
+  }
+}

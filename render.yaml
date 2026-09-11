@@ -1,0 +1,22 @@
+# Render Blueprint — build spec §09.
+# In Render: New + → Blueprint → pick this repo → it reads this file.
+# Free tier: sleeps after 15 min idle, ~30-60s cold start. Hit /api/health
+# ~1 min before a live demo.
+services:
+  - type: web
+    name: phishlens-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MODEL_VERSION
+        value: svm-tfidf-v2-20260911
+      - key: DATABASE_URL
+        sync: false   # paste the Neon connection string in the dashboard
+      - key: ALLOWED_ORIGINS
+        sync: false   # set to the Netlify URL once it exists; default keeps localhost:5173

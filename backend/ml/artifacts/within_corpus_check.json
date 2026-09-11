@@ -1,0 +1,50 @@
+{
+  "n": 3401,
+  "majority_baseline": 0.7044986768597471,
+  "cv_all": 0.9244281765569664,
+  "cv_phishing_relevant": 0.883269413492269,
+  "cv_pure_artifact": 0.7130262589617344,
+  "artifact_lift_over_baseline": 0.008527582101987341,
+  "top_importances": [
+    [
+      "n_url_scheme",
+      0.321254847291058
+    ],
+    [
+      "header_markers",
+      0.14409836794413391
+    ],
+    [
+      "upper_ratio",
+      0.12005745122785551
+    ],
+    [
+      "punct_ratio",
+      0.10153987080723467
+    ],
+    [
+      "digit_ratio",
+      0.07637021451567903
+    ],
+    [
+      "max_line_len",
+      0.04929484827489237
+    ],
+    [
+      "avg_line_len",
+      0.04848997340469141
+    ],
+    [
+      "log_len",
+      0.0477059310344121
+    ]
+  ],
+  "phishing_relevant_features": [
+    "digit_ratio",
+    "log_len",
+    "n_at",
+    "n_url_scheme",
+    "punct_ratio",
+    "upper_ratio"
+  ]
+}
