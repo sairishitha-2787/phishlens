@@ -10,8 +10,15 @@ from pathlib import Path
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 
 # Neon hands out `postgres://` URLs; SQLAlchemy 2.x only accepts `postgresql://`.
+# And a bare `postgresql://` makes SQLAlchemy pick psycopg2, which we don't
+# install — pin the psycopg (v3) driver explicitly so Render doesn't crash with
+# "No module named psycopg2" on the first query.
 _raw_db = os.getenv("DATABASE_URL", f"sqlite:///{BACKEND_DIR / 'phishlens.db'}")
-DATABASE_URL = _raw_db.replace("postgres://", "postgresql://", 1)
+if _raw_db.startswith("postgres://"):
+    _raw_db = "postgresql://" + _raw_db[len("postgres://"):]
+if _raw_db.startswith("postgresql://"):
+    _raw_db = "postgresql+psycopg://" + _raw_db[len("postgresql://"):]
+DATABASE_URL = _raw_db
 
 # §11: explicit allow-list, never "*". The Netlify URL is a placeholder until
 # Vedha finalises hosting; localhost:5173 is Vite's default dev port.
