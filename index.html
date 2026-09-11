@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Phishlens Live Checklist</title>
+<style>
+  :root {
+    --paper:#f5f6f8; --surface:#fff; --ink:#1b2130; --ink-soft:#4a5268; --ink-faint:#7b8399;
+    --line:#dbdfe7; --line-strong:#c2c8d4;
+    --r:#0e7c6b; --p:#3d4fe0; --v:#a8560a;
+    --shadow:0 1px 2px rgba(27,33,48,.04),0 8px 24px rgba(27,33,48,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#10131a; --surface:#171b24; --ink:#e7e9ee; --ink-soft:#a6afc2; --ink-faint:#7b8399;
+      --line:#2a3040; --line-strong:#383f52;
+      --r:#3fcdad; --p:#8b98ff; --v:#e0954b;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#10131a; --surface:#171b24; --ink:#e7e9ee; --ink-soft:#a6afc2; --ink-faint:#7b8399;
+    --line:#2a3040; --line-strong:#383f52;
+    --r:#3fcdad; --p:#8b98ff; --v:#e0954b;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  }
+  * { box-sizing:border-box; }
+  html, body { background:var(--paper); }
+  body { margin:0; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:16px; line-height:1.55; }
+  .wrap { max-width:760px; margin:0 auto; padding:48px 20px 80px; }
+  header { padding-bottom:22px; border-bottom:1px solid var(--line); margin-bottom:24px; }
+  h1 { font-size:26px; font-weight:700; letter-spacing:-.01em; margin:0; }
+  .subtitle { margin-top:8px; font-size:14.5px; color:var(--ink-soft); max-width:62ch; }
+  .status { margin-top:14px; display:flex; align-items:center; gap:8px; font-family:ui-monospace,monospace; font-size:12px; color:var(--ink-faint); }
+  .dot { width:7px; height:7px; border-radius:50%; background:var(--line-strong); flex:none; }
+  .dot.live { background:var(--r); }
+  .dot.warn { background:var(--v); }
+  .legend { display:flex; gap:14px; margin-top:16px; flex-wrap:wrap; }
+  .legend-item { display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-soft); }
+  .legend-badge { width:20px; height:20px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; }
+  .overall { margin-top:18px; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 18px; box-shadow:var(--shadow); display:flex; align-items:center; gap:14px; }
+  .overall .num { font-family:ui-monospace,monospace; font-size:12.5px; color:var(--ink-soft); white-space:nowrap; }
+  .overall .num strong { color:var(--ink); font-size:14px; }
+  .bar-track { flex:1; height:7px; border-radius:5px; background:var(--line); overflow:hidden; }
+  .bar-fill { height:100%; border-radius:5px; background:var(--ink); transition:width .2s ease; }
+  .step-group { margin-top:26px; }
+  .step-head { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; }
+  .step-num { font-family:ui-monospace,monospace; font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--surface); background:var(--ink); padding:2px 8px; border-radius:5px; }
+  .step-label { font-size:12.5px; color:var(--ink-faint); }
+  .item { display:flex; align-items:flex-start; gap:10px; padding:9px 10px; border-radius:8px; cursor:pointer; user-select:none; background:var(--surface); border:1px solid var(--line); margin-bottom:6px; }
+  .item:hover { border-color:var(--line-strong); }
+  .badges { flex:none; display:flex; gap:3px; margin-top:1px; }
+  .badge { width:24px; height:24px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:ui-monospace,monospace; font-size:12px; font-weight:700; color:#fff; }
+  .badge.R { background:var(--r); } .badge.P { background:var(--p); } .badge.V { background:var(--v); }
+  .checkbox { flex:none; width:18px; height:18px; margin-top:3px; border-radius:5px; border:1.5px solid var(--line-strong); background:var(--surface); display:flex; align-items:center; justify-content:center; }
+  .checkbox svg { width:11px; height:11px; opacity:0; }
+  .item.done .checkbox { background:var(--ink); border-color:var(--ink); }
+  .item.done .checkbox svg { opacity:1; }
+  .item.done .checkbox svg path { stroke:var(--surface); }
+  .item-text { font-size:13.5px; color:var(--ink); flex:1; padding-top:2px; }
+  .item.done .item-text { color:var(--ink-faint); text-decoration:line-through; text-decoration-color:var(--line-strong); }
+  footer { margin-top:36px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-faint); }
+  .setup-warning { margin-top:14px; padding:10px 14px; border-radius:8px; background:#fff3cd; color:#664d03; font-size:12.5px; border:1px solid #ffe69c; }
+  :root:not([data-theme="light"]) .setup-warning { background:#3a2f10; color:#f4d774; border-color:#5c4a17; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Phishlens Sprint Checklist</h1>
+    <p class="subtitle">Live, shared with the team — tick a box and everyone with this link sees it update. R = Sai Rishitha, P = Poojitha, V = Vedha Sri.</p>
+    <div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Connecting…</span></div>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-badge" style="background:var(--r)">R</span> Rishitha</div>
+      <div class="legend-item"><span class="legend-badge" style="background:var(--p)">P</span> Poojitha</div>
+      <div class="legend-item"><span class="legend-badge" style="background:var(--v)">V</span> Vedha Sri</div>
+    </div>
+    <div class="overall"><div class="num"><strong id="overallCount">0 / 0</strong> done</div><div class="bar-track"><div class="bar-fill" id="overallBar" style="width:0%"></div></div><div class="num" id="overallPct">0%</div></div>
+  </header>
+  <div id="app"></div>
+  <footer>Detecting AI-Generated Phishing Content · Rishitha, Poojitha &amp; Vedha Sri · Woxsen University</footer>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+(function () {
+  // ======================================================================
+  // 1) PASTE YOUR FIREBASE CONFIG HERE (from Firebase console → Project
+  //    settings → General → Your apps → SDK setup and configuration).
+  //    Everything else in this file works as soon as this object is real.
+  // ======================================================================
+  var firebaseConfig = {
+    apiKey: "AIzaSyBhwXg7QmfuoUsKy_9CYRQQroxnbbB6XYo",
+    authDomain: "phishlens-33168.firebaseapp.com",
+    projectId: "phishlens-33168",
+    storageBucket: "phishlens-33168.firebasestorage.app",
+    messagingSenderId: "268358754733",
+    appId: "1:268358754733:web:4569b42bf5b9678ed74124"
+  };
+  var CONFIG_IS_REAL = firebaseConfig.apiKey.indexOf("PASTE_") !== 0;
+
+  var STEP_LABELS = {1:"Lock scope",2:"Kick off each track",3:"Build the foundations",4:"Deepen each track",5:"Model + adversarial + infra prep",6:"Serve the model",7:"Go live",8:"Mid-sprint checkpoint",9:"Harden and finalize",10:"Integration day",11:"Write the technical sections",12:"Write the architecture section",13:"Build figures",14:"Assemble the draft",15:"Final read-through",16:"Submit"};
+
+  var TASKS = [
+    {id:"s1_0",step:1,persons:["R","P","V"],text:"Scope call with the faculty advisor — confirm framing, dataset, venue tier."},
+    {id:"s2_0",step:2,persons:["R"],text:"Pull the real datasets; check licenses and class balance."},
+    {id:"s2_1",step:2,persons:["P"],text:"Draft a threat taxonomy; pull 5–8 core papers for the literature search."},
+    {id:"s2_2",step:2,persons:["P"],text:"Scaffold the React frontend shell and repo."},
+    {id:"s2_3",step:2,persons:["V"],text:"Design the Postgres schema for detection logs; set up base project infra."},
+    {id:"s3_0",step:3,persons:["R"],text:"Merge and clean into one labeled 3-class set; write a data card."},
+    {id:"s3_1",step:3,persons:["R"],text:"Continue the literature search; log the gap each source leaves open."},
+    {id:"s3_2",step:3,persons:["P"],text:"Build the paste-and-check UI against mock data."},
+    {id:"s3_3",step:3,persons:["V"],text:"Stand up Postgres locally; scaffold the deployment pipeline."},
+    {id:"s4_0",step:4,persons:["R"],text:"Feature engineering — linguistic/stylometric features, TF-IDF baseline."},
+    {id:"s4_1",step:4,persons:["P"],text:"Draft the threat-taxonomy section of the paper."},
+    {id:"s4_2",step:4,persons:["P"],text:"Polish the UI layout against the mock data."},
+    {id:"s4_3",step:4,persons:["V"],text:"Set up staging environment config and secrets ahead of live-wiring."},
+    {id:"s5_0",step:5,persons:["R"],text:"Train baseline models — Naive Bayes, SVM, Random Forest; log accuracy and F1."},
+    {id:"s5_1",step:5,persons:["P"],text:"Start the adversarial prompt set — realistic evasion attempts."},
+    {id:"s5_2",step:5,persons:["P"],text:"Add an explanation field to the UI (\"why this was flagged\"), still mock data."},
+    {id:"s5_3",step:5,persons:["V"],text:"Set up logging/monitoring for the detection endpoint; finalize the deployment target."},
+    {id:"s6_0",step:6,persons:["R"],text:"Build the FastAPI backend — the model-serving endpoint."},
+    {id:"s6_1",step:6,persons:["P"],text:"Run the adversarial set against the current best model; log the evasion rate."},
+    {id:"s6_2",step:6,persons:["V"],text:"Wire Postgres logging into the live backend; harden the deployment config."},
+    {id:"s7_0",step:7,persons:["R","P"],text:"Connect the frontend to the live endpoint, swapping mock data for real predictions."},
+    {id:"s8_0",step:8,persons:["R","P","V"],text:"Mid-sprint checkpoint — decide whether there's room for a transformer baseline."},
+    {id:"s9_0",step:9,persons:["R"],text:"Add a transformer baseline if there's room; otherwise finalize the model comparison table. Harden the backend."},
+    {id:"s9_1",step:9,persons:["P"],text:"Finalize adversarial-testing results and evasion analysis."},
+    {id:"s9_2",step:9,persons:["P"],text:"Final UI polish for the demo — results and explanation views demo-ready."},
+    {id:"s9_3",step:9,persons:["V"],text:"Deploy the app and Postgres; wire the results table view; a stable demo link for screenshots."},
+    {id:"s10_0",step:10,persons:["R","P","V"],text:"Integration day — confirm every number and screenshot the results section needs actually matches."},
+    {id:"s11_0",step:11,persons:["R"],text:"Write the methodology and results sections."},
+    {id:"s11_1",step:11,persons:["R"],text:"Write the related-work section — AI-drafted, then every citation checked against a real source."},
+    {id:"s12_0",step:12,persons:["V"],text:"Write the system architecture and implementation section."},
+    {id:"s13_0",step:13,persons:["R","P","V"],text:"Build figures — architecture diagram, results charts, screenshots."},
+    {id:"s14_0",step:14,persons:["R","P","V"],text:"Assemble the full draft."},
+    {id:"s15_0",step:15,persons:["R","P","V"],text:"Full read-through — fact-check every claim and citation, tighten the language."},
+    {id:"s16_0",step:16,persons:["R","P","V"],text:"Faculty review, address feedback, submit."}
+  ];
+
+  var DEFAULT_DONE = {"s1_0":true,"s2_0":true,"s3_0":true,"s4_0":true,"s5_0":true};
+
+  var doneState = {};
+  TASKS.forEach(function (t) { doneState[t.id] = false; });
+
+  var db = null, docRef = null, gotFirstSnapshot = false;
+
+  var appEl, overallCountEl, overallBarEl, overallPctEl, statusDotEl, statusTextEl;
+
+  function checkSvg() {
+    return '<svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2L4.8 9L10 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  function render() {
+    var html = "";
+    var steps = [];
+    TASKS.forEach(function (t) { if (steps.indexOf(t.step) === -1) steps.push(t.step); });
+    steps.sort(function (a, b) { return a - b; });
+    var totalDone = 0;
+
+    if (!CONFIG_IS_REAL) {
+      html += '<div class="setup-warning">This page isn\'t wired to Firebase yet — checks won\'t sync between people. Paste your firebaseConfig near the top of the file to turn on live sync.</div>';
+    }
+
+    steps.forEach(function (stepNum) {
+      html += '<div class="step-group"><div class="step-head"><span class="step-num">STEP ' + stepNum + '</span><span class="step-label">' + STEP_LABELS[stepNum] + '</span></div>';
+      TASKS.filter(function (t) { return t.step === stepNum; }).forEach(function (t) {
+        if (doneState[t.id]) totalDone++;
+        var badges = t.persons.map(function (p) { return '<span class="badge ' + p + '">' + p + '</span>'; }).join("");
+        html += '<div class="item' + (doneState[t.id] ? " done" : "") + '" data-id="' + t.id + '">' +
+          '<span class="badges">' + badges + '</span>' +
+          '<span class="checkbox">' + checkSvg() + '</span>' +
+          '<span class="item-text">' + t.text + '</span></div>';
+      });
+      html += '</div>';
+    });
+
+    appEl.innerHTML = html;
+    Array.prototype.forEach.call(appEl.querySelectorAll(".item"), function (el) {
+      el.addEventListener("click", function () { toggle(el.getAttribute("data-id")); });
+    });
+
+    overallCountEl.textContent = totalDone + " / " + TASKS.length;
+    var pct = TASKS.length ? Math.round((totalDone / TASKS.length) * 100) : 0;
+    overallBarEl.style.width = pct + "%";
+    overallPctEl.textContent = pct + "%";
+  }
+
+  function setStatus(cls, text) {
+    statusDotEl.className = "dot" + (cls ? " " + cls : "");
+    statusTextEl.textContent = text;
+  }
+
+  function toggle(id) {
+    var next = !doneState[id];
+    doneState[id] = next; // optimistic local update
+    render();
+
+    if (!docRef) return; // no live sync configured — stays local to this browser only
+
+    var patch = {};
+    patch["done." + id] = next;
+    docRef.update(patch).catch(function () {
+      // doc may not exist yet on first-ever write — fall back to a full set
+      docRef.set({ done: doneState }, { merge: true }).catch(function () {
+        setStatus("warn", "Couldn't save that change — check your connection.");
+      });
+    });
+  }
+
+  function init() {
+    appEl = document.getElementById("app");
+    overallCountEl = document.getElementById("overallCount");
+    overallBarEl = document.getElementById("overallBar");
+    overallPctEl = document.getElementById("overallPct");
+    statusDotEl = document.getElementById("statusDot");
+    statusTextEl = document.getElementById("statusText");
+
+    // Always show the list immediately with local defaults — never block
+    // first paint on the network. Firestore, once it responds, re-renders
+    // with the real shared state.
+    Object.keys(DEFAULT_DONE).forEach(function (id) { doneState[id] = DEFAULT_DONE[id]; });
+    render();
+
+    if (!CONFIG_IS_REAL) {
+      setStatus("warn", "Not configured — local only (see the banner below).");
+      return;
+    }
+
+    setStatus("", "Connecting…");
+
+    // Safety net: if Firestore hasn't answered within 8s, stop showing
+    // "Connecting…" forever and say so plainly instead.
+    var connectTimeout = setTimeout(function () {
+      setStatus("warn", "Still trying to connect — taking longer than expected. Checking your internet, or the Firestore setup, might help.");
+    }, 8000);
+
+    try {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+      docRef = db.collection("checklist").doc("state");
+
+      docRef.onSnapshot(function (snap) {
+        clearTimeout(connectTimeout);
+        if (snap.exists && snap.data() && snap.data().done) {
+          var data = snap.data().done;
+          TASKS.forEach(function (t) { doneState[t.id] = !!data[t.id]; });
+        } else if (!gotFirstSnapshot) {
+          // nobody has ever written to this doc — seed it with the defaults
+          TASKS.forEach(function (t) { doneState[t.id] = !!DEFAULT_DONE[t.id]; });
+          docRef.set({ done: doneState }, { merge: true }).catch(function () {});
+        }
+        gotFirstSnapshot = true;
+        setStatus("live", "Live — synced with your team");
+        render();
+      }, function (err) {
+        clearTimeout(connectTimeout);
+        console.error("Firestore onSnapshot error:", err);
+        setStatus("warn", "Live sync failed (" + (err && err.code || "unknown error") + ") — check the Firestore rules/config, or your connection.");
+      });
+    } catch (e) {
+      clearTimeout(connectTimeout);
+      console.error("Firebase init error:", e);
+      setStatus("warn", "Firebase failed to start — check firebaseConfig at the top of this file.");
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
