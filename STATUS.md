@@ -8,7 +8,7 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Now — in progress
 
-- R: backend is in this repo (`backend/`) with a Render Blueprint (`render.yaml`) — **deploy is the next action and needs a human with the Render + Neon accounts** (see Blocked). Then connect frontend (with P).
+- R: backend is live at https://phishlens-api-tlx8.onrender.com — next is connecting the frontend to it (joint with P)
 - P: (update this)
 - V: (update this)
 
@@ -16,6 +16,7 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Done — log, newest first
 
+- 2026-09-11 R: backend deployed live and verified on real Postgres — https://phishlens-api-tlx8.onrender.com (Render free tier, Neon free Postgres). /api/health confirms model_loaded:true; a real POST /api/predict on a live phishing-style email was correctly classified (human_phishing, 0.64 confidence) and round-tripped correctly via GET /api/predictions/{id}, confirming the Neon write actually persists. This is what unblocks Vedha's Postgres/logging work.
 - 2026-09-11 R: fixed a deploy-blocking bug found while prepping Render — `postgresql://` made SQLAlchemy pick the psycopg2 driver, which isn't installed (we ship psycopg v3). Would have crashed on the first Neon query. `config.py` now pins `postgresql+psycopg://` for any Neon URL shape. Still only tested on SQLite locally; first real Postgres test happens at deploy.
 - 2026-09-11 R: backend pushed to this repo under `backend/` (app/, ml/ incl. `model_v2.pkl`, schema.sql, requirements.txt, tests/) plus `render.yaml` Blueprint at repo root encoding the exact Render settings (root dir `backend`, `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, Python 3.11.9, health check `/api/health`). Tests pass from the repo copy.
 - 2026-09-11 R: backend verified end-to-end in a clean venv — `pip install -r requirements.txt` OK, `pytest tests/ -v` 1 passed / 0 failed, `uvicorn app.main:app --reload` boots in ~3s. Hit `POST /api/predict` with 3 real held-out test emails (Chase phish from Nazario, SquirrelMail list reply from CEAS, GPT phish): all 3 classified correctly (confidences 0.79 / 0.81 / 0.77). `/api/health`, `/api/stats`, `/api/predictions` all 200; empty input -> 400. Only fix needed: `pytest` was missing from `requirements.txt`. Known nits, not blockers: confidences are softmax over SVM margins (uncalibrated); HTML entity `nbsp` can leak into `top_features`.
@@ -32,22 +33,23 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Blocked / needs a decision
 
-- **Deploy needs someone logged into Render + Neon (R or V):** (1) Neon → New project (free) → copy the connection string. (2) Render → New + → Blueprint → pick this repo → it reads `render.yaml`; paste the Neon string as `DATABASE_URL` when prompted (either `postgres://` or `postgresql://` form is fine — config handles both). (3) Once live, `curl <url>/api/health` should return `model_loaded: true`, then one `POST /api/predict` to prove Postgres logging works. (4) Put the live URL here and in the Reference docs. No CLI/API access to either account from R's machine, so this can't be automated by an AI tool — it's a few clicks in two dashboards.
 - Faculty hasn't weighed in on the confound finding specifically (call happened before it was found) — worth a short follow-up, not blocking.
 - `phishing3.mbox` missing — R needs to check Windows Defender's quarantine and re-download. Pipeline runs without it for now.
+- V: backend is now live (see Done log) — you're unblocked on wiring Postgres logging in. Live URL: https://phishlens-api-tlx8.onrender.com
 
 ---
 
 ## Next up — per track
 
-- **R (data/model/backend):** deploy via the Blueprint (see Blocked — joint with V) → paste live URL into STATUS.md → connect frontend to live endpoint (joint with P) → try a few real-world pastes before the demo (model has only been tested on corpus samples)
+- **R (data/model/backend):** backend built, deployed, and verified live — next is connecting the frontend to the live endpoint (joint with P), which needs P's UI to be in a connectable state first
 - **P (frontend/security):** run adversarial prompt set against `model_v2.pkl` (doesn't need to wait for the live backend) → connect frontend to live endpoint (joint with R)
-- **V (infra/backend):** deploy is ready to go — `render.yaml` has every setting; only `DATABASE_URL` (from Neon) needs pasting. `schema.sql` is optional (the app runs `create_all` on startup). Set `ALLOWED_ORIGINS` once P's Netlify URL exists.
+- **V (infra/backend):** unblocked — backend is live on Render + Neon (https://phishlens-api-tlx8.onrender.com). Wire up / verify Postgres logging against it; set `ALLOWED_ORIGINS` on Render once P's Netlify URL exists.
 
 ---
 
 ## Reference docs (for context, not status)
 
 - **Live sprint checklist (check things off here, it's shared):** https://sairishitha-2787.github.io/phishlens/
+- **Live backend API:** https://phishlens-api-tlx8.onrender.com — `/api/health` to wake it (~30–60s cold start on free tier), `/docs` for the interactive API reference
 - Build spec: "Phishlens Build Spec" (Claude Artifact, Rishitha's account)
 - Full project narrative + all technical detail: Claude Project "RESEARCH PAPER" (Rishitha's account — ask her if you need something from it, since it's not shared to the repo)
