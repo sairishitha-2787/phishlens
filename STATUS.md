@@ -9,7 +9,7 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 ## Now — in progress
 
 - R: backend is live at https://phishlens-api-tlx8.onrender.com — next is connecting the frontend to it (joint with P)
-- P: (update this)
+- P: - [2026-09-12] [P] Completed frontend UI polish, explanation/results view, adversarial prompt set, adversarial testing, and evasion analysis. Frontend is connected to the live prediction API, but browser testing is currently blocked by backend CORS/ALLOWED_ORIGINS; waiting for V to configure the deployed frontend origin.
 - V: (update this)
 
 ---
