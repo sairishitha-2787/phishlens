@@ -1,0 +1,230 @@
+[
+  {
+    "n": 1,
+    "name": "Obvious phishing",
+    "subject": "Urgent Account Verification",
+    "expected": "PHISHING",
+    "http": 200,
+    "label": "ai_phishing",
+    "confidence": 0.4821999671450731,
+    "probabilities": {
+      "legitimate": 0.058703952274912236,
+      "ai_phishing": 0.4821999671450731,
+      "human_phishing": 0.4590960805800146
+    },
+    "top_features": [
+      "secure",
+      "verify",
+      "subject urgent",
+      "urgent",
+      "link",
+      "contains 1 link",
+      "9 urgency cues"
+    ],
+    "model_version": "svm-tfidf-v2-20260911",
+    "raw": {
+      "created_at": "2026-09-12T15:50:19Z",
+      "id": "2639692c-5532-4a4d-b48e-a0aba95257c0",
+      "label": "ai_phishing",
+      "confidence": 0.4821999671450731,
+      "probabilities": {
+        "legitimate": 0.058703952274912236,
+        "ai_phishing": 0.4821999671450731,
+        "human_phishing": 0.4590960805800146
+      },
+      "explanation": {
+        "top_features": [
+          "secure",
+          "verify",
+          "subject urgent",
+          "urgent",
+          "link",
+          "contains 1 link",
+          "9 urgency cues"
+        ]
+      },
+      "model_version": "svm-tfidf-v2-20260911",
+      "truncated": false
+    }
+  },
+  {
+    "n": 2,
+    "name": "Social-engineering phishing",
+    "subject": "Quick favour before the meeting",
+    "expected": "PHISHING / SUSPICIOUS",
+    "http": 200,
+    "label": "human_phishing",
+    "confidence": 0.4719576615543055,
+    "probabilities": {
+      "legitimate": 0.20684614433764317,
+      "ai_phishing": 0.3211961941080513,
+      "human_phishing": 0.4719576615543055
+    },
+    "top_features": [
+      "document",
+      "attached",
+      "subject",
+      "the attached",
+      "here http",
+      "contains 1 link"
+    ],
+    "model_version": "svm-tfidf-v2-20260911",
+    "raw": {
+      "created_at": "2026-09-12T15:50:20Z",
+      "id": "528425dd-fc8a-42e4-a392-c165c70d3307",
+      "label": "human_phishing",
+      "confidence": 0.4719576615543055,
+      "probabilities": {
+        "legitimate": 0.20684614433764317,
+        "ai_phishing": 0.3211961941080513,
+        "human_phishing": 0.4719576615543055
+      },
+      "explanation": {
+        "top_features": [
+          "document",
+          "attached",
+          "subject",
+          "the attached",
+          "here http",
+          "contains 1 link"
+        ]
+      },
+      "model_version": "svm-tfidf-v2-20260911",
+      "truncated": false
+    }
+  },
+  {
+    "n": 3,
+    "name": "AI-style legitimate",
+    "subject": "Weekly Project Update",
+    "expected": "LEGITIMATE",
+    "http": 200,
+    "label": "legitimate",
+    "confidence": 0.4827196172769947,
+    "probabilities": {
+      "legitimate": 0.4827196172769947,
+      "ai_phishing": 0.24312872736522365,
+      "human_phishing": 0.27415165535778163
+    },
+    "top_features": [
+      "weekly",
+      "integration",
+      "update regarding",
+      "discuss",
+      "regarding this"
+    ],
+    "model_version": "svm-tfidf-v2-20260911",
+    "raw": {
+      "created_at": "2026-09-12T15:50:20Z",
+      "id": "7ae986f4-e0a3-4d5f-af9f-1e737666ab22",
+      "label": "legitimate",
+      "confidence": 0.4827196172769947,
+      "probabilities": {
+        "legitimate": 0.4827196172769947,
+        "ai_phishing": 0.24312872736522365,
+        "human_phishing": 0.27415165535778163
+      },
+      "explanation": {
+        "top_features": [
+          "weekly",
+          "integration",
+          "update regarding",
+          "discuss",
+          "regarding this"
+        ]
+      },
+      "model_version": "svm-tfidf-v2-20260911",
+      "truncated": false
+    }
+  },
+  {
+    "n": 4,
+    "name": "Phishing without obvious keywords",
+    "subject": "Document available for review",
+    "expected": "PHISHING / SUSPICIOUS",
+    "http": 200,
+    "label": "ai_phishing",
+    "confidence": 0.4404477370070006,
+    "probabilities": {
+      "legitimate": 0.18796962989557436,
+      "ai_phishing": 0.4404477370070006,
+      "human_phishing": 0.371582633097425
+    },
+    "top_features": [
+      "document",
+      "the document",
+      "available for",
+      "any issues",
+      "portal",
+      "contains 1 link"
+    ],
+    "model_version": "svm-tfidf-v2-20260911",
+    "raw": {
+      "created_at": "2026-09-12T15:50:21Z",
+      "id": "7dbb9c47-2023-40a2-904f-1014b7edece7",
+      "label": "ai_phishing",
+      "confidence": 0.4404477370070006,
+      "probabilities": {
+        "legitimate": 0.18796962989557436,
+        "ai_phishing": 0.4404477370070006,
+        "human_phishing": 0.371582633097425
+      },
+      "explanation": {
+        "top_features": [
+          "document",
+          "the document",
+          "available for",
+          "any issues",
+          "portal",
+          "contains 1 link"
+        ]
+      },
+      "model_version": "svm-tfidf-v2-20260911",
+      "truncated": false
+    }
+  },
+  {
+    "n": 5,
+    "name": "Legitimate security email",
+    "subject": "Security awareness training",
+    "expected": "LEGITIMATE",
+    "http": 200,
+    "label": "human_phishing",
+    "confidence": 0.42102186192617547,
+    "probabilities": {
+      "legitimate": 0.32888078748145916,
+      "ai_phishing": 0.2500973505923654,
+      "human_phishing": 0.42102186192617547
+    },
+    "top_features": [
+      "account",
+      "subject",
+      "awareness",
+      "links",
+      "tomorrow"
+    ],
+    "model_version": "svm-tfidf-v2-20260911",
+    "raw": {
+      "created_at": "2026-09-12T15:50:22Z",
+      "id": "9d3d0c7f-4cea-4bfa-a3d7-8591baec9411",
+      "label": "human_phishing",
+      "confidence": 0.42102186192617547,
+      "probabilities": {
+        "legitimate": 0.32888078748145916,
+        "ai_phishing": 0.2500973505923654,
+        "human_phishing": 0.42102186192617547
+      },
+      "explanation": {
+        "top_features": [
+          "account",
+          "subject",
+          "awareness",
+          "links",
+          "tomorrow"
+        ]
+      },
+      "model_version": "svm-tfidf-v2-20260911",
+      "truncated": false
+    }
+  }
+]
