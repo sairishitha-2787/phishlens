@@ -40,14 +40,22 @@ _STYLO_URL_IDX = STYLO_NAMES.index("url_count")
 _STYLO_URGENCY_IDX = STYLO_NAMES.index("urgency_keywords")
 
 
+_HTML_ARTIFACT_TOKENS = {"nbsp", "amp", "quot", "lt", "gt", "apos"}
+
+
 def _readable(term: str) -> bool:
     """
     Explanation-quality filter only — the model still uses every feature.
     Drops n-grams made entirely of stopwords / contraction fragments ("ll",
-    "to you", "your"), which are high-weight but meaningless to a reader.
+    "to you", "your"), plus leftover HTML-entity tokens like "nbsp" that
+    survived tokenization from source emails with raw HTML markup — these
+    are high-weight but meaningless to a reader.
     """
     toks = term.split()
-    return any(len(t) >= 3 and t not in ENGLISH_STOP_WORDS for t in toks)
+    return any(
+        len(t) >= 3 and t not in ENGLISH_STOP_WORDS and t.lower() not in _HTML_ARTIFACT_TOKENS
+        for t in toks
+    )
 
 
 class Predictor:
