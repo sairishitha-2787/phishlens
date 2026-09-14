@@ -16,7 +16,7 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Done — log, newest first
 
-- 2026-09-14 R: README rewritten for the whole repo (was checklist-only): live links, results table, confound summary, layout, API contract, local run, deploy, data, limitations. Root `.gitignore` added. `data_card.md` copied into `backend/ml/data/` (build spec §04 location). CORS default in `config.py` switched from the dead Netlify placeholder to the GitHub Pages origin + `localhost:5173`; test updated; suite passes.
+- 2026-09-14 R: README rewritten for the whole repo (was a one-paragraph stub): live links, results table, confound summary, layout, API contract, local run, deploy, data, limitations. Root `.gitignore` added. `data_card.md` copied into `backend/ml/data/` (build spec §04 location). CORS default in `config.py` switched from the dead Netlify placeholder to the GitHub Pages origin + `localhost:5173`; test updated; suite passes.
 - 2026-09-13 R: DistilBERT stretch baseline, time-boxed (37 of 90 min used). **Reduced-scale CPU run** (no CUDA): 1,200 of 3,854 train rows, 1 epoch, max_len 128. Test macro-F1 0.9723 / acc 0.9758 — sits beside NB, below SVM; must be footnoted as reduced-scale, not like-for-like. Script + results in `backend/ml/artifacts/transformer_baseline/` (uncommitted pending R's decision).
 - 2026-09-13 R: display-only fix — HTML-entity tokens (`nbsp`, `amp`, …) filtered out of `top_features`. No model change.
 - 2026-09-13 R: fixed `frontend/styles.css` — five lines began with a stray `+` (diff-paste artifact) which silently invalidated `.hero`, `.signal-panel`, `.result-card`, the spinner keyframes and the whole mobile media query. Symptom was the orbit graphic floating into the header. Five characters removed, nothing else touched.
@@ -27,7 +27,7 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 - 2026-09-11 R: backend verified end-to-end in a clean venv — `pip install -r requirements.txt` OK, `pytest tests/ -v` 1 passed / 0 failed, `uvicorn app.main:app --reload` boots in ~3s. Hit `POST /api/predict` with 3 real held-out test emails (Chase phish from Nazario, SquirrelMail list reply from CEAS, GPT phish): all 3 classified correctly (confidences 0.79 / 0.81 / 0.77). `/api/health`, `/api/stats`, `/api/predictions` all 200; empty input -> 400. Only fix needed: `pytest` was missing from `requirements.txt`. Known nits, not blockers: confidences are softmax over SVM margins (uncalibrated); HTML entity `nbsp` can leak into `top_features`.
 - 2026-09-11 R: `processed/data_card.md` confirmed current for v2 — every number (5,505 rows, 1,665/1,444/2,396 split, 251 control, 1.44:1 ratio) re-verified against the live CSVs. Not stale anymore.
 - 2026-09-11 R: FastAPI backend built per build spec §06/§07/§11 — `POST /api/predict`, `GET /api/predictions[/{id}]`, `/api/health`, `/api/stats`; serves `model_v2.pkl`; SQLAlchemy one-table log (SQLite locally, Postgres/Neon via `DATABASE_URL`); explanation = top SVM terms + URL count; CORS allow-list. `backend/schema.sql` for Neon. Lives in the RESEARCH PAPER folder (`backend/`), not yet in this repo.
-- 2026-09-11 R: live sprint checklist deployed — https://sairishitha-2787.github.io/phishlens/ — shared, real-time checklist (Firebase Firestore), synced across everyone who has it open. Replaces the old localStorage-only checklist file. Source lives in this repo as `index.html`.
+- 2026-09-11 R: live sprint checklist deployed to GitHub Pages (Firebase-synced). **Removed from the repo 2026-09-14** — the root URL now redirects to the app.
 - 2026-09-11 R: dataset v2 built and validated — folded AI-generated-legitimate rows into the `legitimate` class, fixing the v1 confound (model was detecting corpus/AI style, not phishing content). New control-set false-alarm rate: 0.0% (was 93.5%). See `backend/ml/artifacts/rebalanced_analysis.md`.
 - 2026-09-11 R: confound diagnosed — v1 baselines (macro-F1 0.9878) were a dataset-construction artifact, not real phishing detection. Root cause + two diagnostic experiments in `backend/ml/artifacts/confound_analysis.md`.
 - 2026-09-11 R: real dataset pipeline built — mbox parser, exact + SimHash near-dup dedup, stratified split. Verified real sources: `legit.csv` = CEAS-challenge + MIT mail (not Enron), `phishing.csv`/mbox = Nazario Phishing Corpus. `phishing3.mbox` still missing (likely Defender-quarantined).
@@ -56,7 +56,6 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Reference docs (for context, not status)
 
-- **Live sprint checklist (check things off here, it's shared):** https://sairishitha-2787.github.io/phishlens/
 - **Live backend API:** https://phishlens-api-tlx8.onrender.com — `/api/health` to wake it (~30–60s cold start on free tier), `/docs` for the interactive API reference
 - Build spec: "Phishlens Build Spec" (Claude Artifact, Rishitha's account)
 - Full project narrative + all technical detail: Claude Project "RESEARCH PAPER" (Rishitha's account — ask her if you need something from it, since it's not shared to the repo)

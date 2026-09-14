@@ -8,7 +8,6 @@ Paste an email, get a verdict, a confidence, and a short "why this was flagged".
 |---|---|
 | **Live API** | https://phishlens-api-tlx8.onrender.com — [`/api/health`](https://phishlens-api-tlx8.onrender.com/api/health) · [`/docs`](https://phishlens-api-tlx8.onrender.com/docs) (interactive) |
 | **Frontend** | https://sairishitha-2787.github.io/phishlens/frontend/ |
-| **Sprint checklist** | https://sairishitha-2787.github.io/phishlens/ (shared, real-time) |
 | **Team status** | [`STATUS.md`](STATUS.md) — read first, update last |
 
 > The API runs on Render's free tier and sleeps after 15 min idle. First request after that takes 30–60 s. Hit `/api/health` a minute before a demo.
@@ -46,7 +45,6 @@ phishlens/
 │   ├── schema.sql            Postgres schema (one table)
 │   └── requirements.txt
 ├── frontend/                 static UI — index.html + app.js + styles.css, no build step
-├── index.html                the sprint checklist (Firebase-synced)
 ├── render.yaml               Render Blueprint for the API
 └── STATUS.md                 team log
 ```

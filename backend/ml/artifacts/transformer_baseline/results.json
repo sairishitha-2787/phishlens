@@ -1,0 +1,82 @@
+{
+  "generated": "2026-09-13",
+  "seed": 42,
+  "model": "distilbert-base-uncased",
+  "mode": "cpu",
+  "run_label": "REDUCED-SCALE CPU RUN",
+  "config": {
+    "epochs": 1,
+    "batch_size": 8,
+    "max_length": 128,
+    "train_rows": 1200,
+    "lr": 5e-05
+  },
+  "device": "cpu",
+  "cpu_threads": 10,
+  "train_rows_used": 1200,
+  "train_rows_full": 3854,
+  "train_class_counts": {
+    "ai_phishing": 522,
+    "human_phishing": 315,
+    "legitimate": 363
+  },
+  "steps_completed": 150,
+  "steps_planned": 150,
+  "stopped_early": false,
+  "val_history": [
+    {
+      "epoch": 1,
+      "steps": 150,
+      "accuracy": 0.9624697336561744,
+      "macro_f1": 0.9593454928202899
+    }
+  ],
+  "test": {
+    "accuracy": 0.9757575757575757,
+    "macro_f1": 0.9723205212948375,
+    "per_class": {
+      "ai_phishing": {
+        "precision": 0.989010989010989,
+        "recall": 1.0,
+        "f1": 0.994475138121547,
+        "support": 360
+      },
+      "human_phishing": {
+        "precision": 0.9545454545454546,
+        "recall": 0.9722222222222222,
+        "f1": 0.963302752293578,
+        "support": 216
+      },
+      "legitimate": {
+        "precision": 0.975103734439834,
+        "recall": 0.9437751004016064,
+        "f1": 0.9591836734693877,
+        "support": 249
+      }
+    },
+    "ai_phishing_fn": 0,
+    "ai_phishing_fn_rate": 0.0,
+    "confusion_matrix": [
+      [
+        360,
+        0,
+        0
+      ],
+      [
+        0,
+        210,
+        6
+      ],
+      [
+        4,
+        10,
+        235
+      ]
+    ]
+  },
+  "timing_min": {
+    "train": 18.399415632088978,
+    "eval": 1.0293866356213888,
+    "wall": 20.567563247680663
+  }
+}
