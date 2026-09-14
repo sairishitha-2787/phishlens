@@ -120,10 +120,10 @@ def run():
 
         # ---- CORS: allowed origin echoed, unknown origin not
         r = c.options("/api/predict", headers={
-            "Origin": "https://phishlens.netlify.app",
+            "Origin": "https://sairishitha-2787.github.io",
             "Access-Control-Request-Method": "POST",
         })
-        assert r.headers.get("access-control-allow-origin") == "https://phishlens.netlify.app"
+        assert r.headers.get("access-control-allow-origin") == "https://sairishitha-2787.github.io"
         r = c.options("/api/predict", headers={
             "Origin": "https://evil.example",
             "Access-Control-Request-Method": "POST",

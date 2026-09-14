@@ -1,0 +1,18 @@
+# Python
+.venv*/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# local databases / test artifacts
+*.db
+backend/tests/_test.db
+
+# datasets are not committed — see backend/ml/data/data_card.md
+processed/
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

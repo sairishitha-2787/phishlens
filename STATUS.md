@@ -8,7 +8,7 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Now — in progress
 
-- R: backend is live at https://phishlens-api-tlx8.onrender.com — next is connecting the frontend to it (joint with P)
+- R: repo polished + README rewritten. Frontend is live on GitHub Pages but **still CORS-blocked from the API** until Render redeploys with the new default (or `ALLOWED_ORIGINS` is set in the dashboard) — see Blocked.
 - P: - [2026-09-12] [P] Completed frontend UI polish, explanation/results view, adversarial prompt set, adversarial testing, and evasion analysis. Frontend is connected to the live prediction API, but browser testing is currently blocked by backend CORS/ALLOWED_ORIGINS; waiting for V to configure the deployed frontend origin.
 - V: (update this)
 
@@ -16,6 +16,11 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Done — log, newest first
 
+- 2026-09-14 R: README rewritten for the whole repo (was checklist-only): live links, results table, confound summary, layout, API contract, local run, deploy, data, limitations. Root `.gitignore` added. `data_card.md` copied into `backend/ml/data/` (build spec §04 location). CORS default in `config.py` switched from the dead Netlify placeholder to the GitHub Pages origin + `localhost:5173`; test updated; suite passes.
+- 2026-09-13 R: DistilBERT stretch baseline, time-boxed (37 of 90 min used). **Reduced-scale CPU run** (no CUDA): 1,200 of 3,854 train rows, 1 epoch, max_len 128. Test macro-F1 0.9723 / acc 0.9758 — sits beside NB, below SVM; must be footnoted as reduced-scale, not like-for-like. Script + results in `backend/ml/artifacts/transformer_baseline/` (uncommitted pending R's decision).
+- 2026-09-13 R: display-only fix — HTML-entity tokens (`nbsp`, `amp`, …) filtered out of `top_features`. No model change.
+- 2026-09-13 R: fixed `frontend/styles.css` — five lines began with a stray `+` (diff-paste artifact) which silently invalidated `.hero`, `.signal-panel`, `.result-card`, the spinner keyframes and the whole mobile media query. Symptom was the orbit graphic floating into the header. Five characters removed, nothing else touched.
+- 2026-09-13 P: frontend pushed (`frontend/` — static, no build step, points at the live API) + adversarial probe: 4/5 hand-written cases pass (`backend/ml/artifacts/adversarial_test_results.md`). Fail case: a legitimate security notice read as `human_phishing`.
 - 2026-09-11 R: backend deployed live and verified on real Postgres — https://phishlens-api-tlx8.onrender.com (Render free tier, Neon free Postgres). /api/health confirms model_loaded:true; a real POST /api/predict on a live phishing-style email was correctly classified (human_phishing, 0.64 confidence) and round-tripped correctly via GET /api/predictions/{id}, confirming the Neon write actually persists. This is what unblocks Vedha's Postgres/logging work.
 - 2026-09-11 R: fixed a deploy-blocking bug found while prepping Render — `postgresql://` made SQLAlchemy pick the psycopg2 driver, which isn't installed (we ship psycopg v3). Would have crashed on the first Neon query. `config.py` now pins `postgresql+psycopg://` for any Neon URL shape. Still only tested on SQLite locally; first real Postgres test happens at deploy.
 - 2026-09-11 R: backend pushed to this repo under `backend/` (app/, ml/ incl. `model_v2.pkl`, schema.sql, requirements.txt, tests/) plus `render.yaml` Blueprint at repo root encoding the exact Render settings (root dir `backend`, `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, Python 3.11.9, health check `/api/health`). Tests pass from the repo copy.
@@ -33,6 +38,8 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 ## Blocked / needs a decision
 
+- **Live frontend can't reach the API yet (CORS).** `https://sairishitha-2787.github.io` isn't in Render's allow-list. Fix is either: (a) Render auto-deploys the push that changed the code default — check the dashboard, then `curl -X OPTIONS <api>/api/predict -H "Origin: https://sairishitha-2787.github.io" -H "Access-Control-Request-Method: POST" -D -` should return an `access-control-allow-origin` header; or (b) set `ALLOWED_ORIGINS=https://sairishitha-2787.github.io,http://localhost:5173` in the Render dashboard (overrides the code default). Local dev on `localhost:5173` already works.
+- Transformer baseline files are untracked — R to decide whether they go in the repo / the paper.
 - Faculty hasn't weighed in on the confound finding specifically (call happened before it was found) — worth a short follow-up, not blocking.
 - `phishing3.mbox` missing — R needs to check Windows Defender's quarantine and re-download. Pipeline runs without it for now.
 - V: backend is now live (see Done log) — you're unblocked on wiring Postgres logging in. Live URL: https://phishlens-api-tlx8.onrender.com
@@ -43,7 +50,7 @@ One line per entry: `- [date] [R/P/V] did X`. Newest entries go on top of each l
 
 - **R (data/model/backend):** backend built, deployed, and verified live — next is connecting the frontend to the live endpoint (joint with P), which needs P's UI to be in a connectable state first
 - **P (frontend/security):** run adversarial prompt set against `model_v2.pkl` (doesn't need to wait for the live backend) → connect frontend to live endpoint (joint with R)
-- **V (infra/backend):** unblocked — backend is live on Render + Neon (https://phishlens-api-tlx8.onrender.com). Wire up / verify Postgres logging against it; set `ALLOWED_ORIGINS` on Render once P's Netlify URL exists.
+- **V (infra/backend):** confirm Render redeployed after the latest push (or set `ALLOWED_ORIGINS` — see Blocked) so the GitHub Pages frontend can call the API; then verify Postgres logging end-to-end from the live UI.
 
 ---
 

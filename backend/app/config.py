@@ -20,13 +20,14 @@ if _raw_db.startswith("postgresql://"):
     _raw_db = "postgresql+psycopg://" + _raw_db[len("postgresql://"):]
 DATABASE_URL = _raw_db
 
-# §11: explicit allow-list, never "*". The Netlify URL is a placeholder until
-# Vedha finalises hosting; localhost:5173 is Vite's default dev port.
+# §11: explicit allow-list, never "*". The frontend is served from GitHub
+# Pages (the build spec's Netlify assumption was dropped); localhost:5173 is
+# the port to serve frontend/ on for local dev. Override via the env var.
 ALLOWED_ORIGINS = [
     o.strip()
     for o in os.getenv(
         "ALLOWED_ORIGINS",
-        "https://phishlens.netlify.app,http://localhost:5173",
+        "https://sairishitha-2787.github.io,http://localhost:5173",
     ).split(",")
     if o.strip()
 ]
